@@ -1,3 +1,6 @@
+#!/usr/bin/python
+
+
 def rot13(str):
     return str.encode("ROT13")
 
