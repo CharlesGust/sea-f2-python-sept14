@@ -1,0 +1,6 @@
+"""
+Fibonacci Series! (my favorite~)
+"""
+
+def fibonacci(n):
+    return fibonacci(n-1) + fibonacci(n-1)
