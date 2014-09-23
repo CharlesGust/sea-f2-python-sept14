@@ -7,6 +7,24 @@ donation_DB = [["Alice", [500, 100, 100]],
                ["Ellie", [200, 200]]]
 
 
+def safe_input(prompt):
+    """ get input, but silently handle common exceptions """
+    try:
+        return input(prompt)
+    except (EOFError, KeyboardInterrupt):
+        print
+        return None
+
+
+def safe_raw_input(prompt):
+    """ get raw input, but silently handle common exceptions """
+    try:
+        return raw_input(prompt)
+    except (EOFError, KeyboardInterrupt):
+        print
+        return None
+
+
 def search_DB(full_name):
     """ search donation database, return None if name is not found """
     global donation_DB
@@ -22,8 +40,10 @@ def ask_Name():
     global donation_DB
 
     while True:
-        full_name = raw_input("What is the Full Name?")
-        if full_name == "list":
+        full_name = safe_raw_input("What is the Full Name?")
+        if not full_name:
+            continue
+        elif full_name == "list":
             for donor in donation_DB:
                 print donor[0]
         else:
@@ -35,8 +55,10 @@ def ask_Name():
 def ask_Amount():
     """ prompt the user for a donation amount """
     while True:
-        amount = input("What is the donation amount?")
-        if type(amount) != float and type(amount) != int:
+        amount = safe_input("What is the donation amount?")
+        if not amount:
+            continue
+        elif type(amount) != float and type(amount) != int:
             print "Please enter a number"
         else:
             return amount
@@ -82,11 +104,14 @@ def create_Report():
 
 if __name__ == "__main__":
     while True:
-        action = raw_input("Choose: 1. Send a Thank You, 2. Create a Report: ")
+        action =\
+            safe_raw_input("Choose: 1. Send a Thank You, 2. Create a Report: ")
 
-        if int(action) == 1:
+        if not action:
+            break
+        elif action == "1":
             send_ThankYou()
-        elif int(action) == 2:
+        elif action == "2":
             create_Report()
         else:
             break
