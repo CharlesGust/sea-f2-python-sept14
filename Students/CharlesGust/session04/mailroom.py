@@ -1,10 +1,12 @@
 #!/usr/bin/python
 
-donation_DB = [["Alice", [500, 100, 100]],
-               ["Betty", [50]],
-               ["Carol", [1000, 10, 10]],
-               ["Debbie", [25, 25, 25]],
-               ["Ellie", [200, 200]]]
+donation_DB = {
+    "Alice": [500, 100, 100],
+    "Betty": [50],
+    "Carol": [1000, 10, 10],
+    "Debbie": [25, 25, 25],
+    "Ellie": [200, 200]
+    }
 
 
 def safe_input(prompt):
@@ -27,12 +29,10 @@ def safe_raw_input(prompt):
 
 def search_DB(full_name):
     """ search donation database, return None if name is not found """
-    global donation_DB
-
-    for donor in donation_DB:
-        if donor[0] == full_name:
-            return donor
-    return None
+    if full_name in donation_DB:
+        return donation_DB[full_name]
+    else:
+        return None
 
 
 def ask_Name():
@@ -45,10 +45,10 @@ def ask_Name():
             continue
         elif full_name == "list":
             for donor in donation_DB:
-                print donor[0]
+                print donor
         else:
             if not search_DB(full_name):
-                donation_DB.append([full_name, []])
+                donation_DB[full_name] = []
             return full_name
 
 
@@ -65,16 +65,7 @@ def ask_Amount():
 
 
 def record_Donation(full_name, amount):
-    global donation_db
-
-    for donor in donation_DB:
-        if donor[0] == full_name:
-            donor[1].append(amount)
-            return
-    else:
-        """ if name previously inserted when not found, name will be found """
-        assert(False)
-        donation_DB.append([full_name, [amount]])
+    donation_DB[full_name].append(amount)
 
 
 def send_ThankYou():
@@ -94,24 +85,41 @@ def create_Report():
 
     print "{0:20s} {1:5s} {2:7s}".format("Name", "Total", "Average")
     for donor in donation_DB:
-        donor_name = donor[0]
-        if len(donor[0]) > 20:
+        donor_name = donor
+        if len(donor) > 20:
             donor_name = donor_name[0:17]+"..."
+        total = sum(donation_DB[donor])
+        average = total / len(donation_DB[donor])
         print "{0:20s} {1:5d} {2:7d}".format(donor_name,
-                                             sum(donor[1]),
-                                             sum(donor[1])/len(donor[1]))
-    pass
+                                             total,
+                                             average)
+
+
+def create_Letters():
+    file_Prefix = "./Letters/"
+    for donor in donation_DB:
+        f = open(file_Prefix+donor, "w")
+        letter = "Dear %(donor)s, Thank you very much for your donations totalling\
+ $%(amount).2f".format({"donor": donor, "amount": sum(donation_DB[donor])})
+        f.write(letter)
+        f.close()
+    print "Letters written to Letters directory"
+
+main_menu_actions = {
+    "1":    send_ThankYou,
+    "2":    create_Report,
+    "3":    create_Letters
+}
 
 if __name__ == "__main__":
     while True:
         action =\
-            safe_raw_input("Choose: 1. Send a Thank You, 2. Create a Report: ")
+            safe_raw_input("Choose: 1.Send Thank You, \
+2.Create Report, 3.Write Letters: ")
 
         if not action:
             break
-        elif action == "1":
-            send_ThankYou()
-        elif action == "2":
-            create_Report()
+        elif action in main_menu_actions:
+            main_menu_actions[action]()
         else:
             break
