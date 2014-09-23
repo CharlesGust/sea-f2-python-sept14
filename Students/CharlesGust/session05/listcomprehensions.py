@@ -1,5 +1,3 @@
-import sys
-
 """
 List Comprehension Guesses
 
