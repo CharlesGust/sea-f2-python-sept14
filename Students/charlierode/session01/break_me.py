@@ -23,7 +23,7 @@ class Animal(object):
     	self.name = name
     	self.has_nipples = has_nipples
 
-class Mammal(Animal):
+class Mamal(Animal):
 	def __init__(self, name):
 	    self.name = name
 	    self.has_nipples = True
@@ -34,10 +34,10 @@ class Mammal(Animal):
 
 
 
-cow = Mammal("Cow")
+cow = Mamal("Cow")
 """Cows have nipples. You can milk Cows."""
 
-cat = Mammal("Cat")
+cat = Mamal("Cat")
 """Cats have nipples. You can milk Cats."""
 
 snake = Animal("Snake", False)
