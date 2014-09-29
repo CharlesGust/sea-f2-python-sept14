@@ -6,32 +6,31 @@ a simple script can run and test your html rendering classes.
 Uncomment the steps as you add to your rendering.
 
 """
-from io import open, StringIO
+import codecs
+import cStringIO
 
 
 # importing the html_rendering code with a short name for easy typing.
 import html_render as hr
 reload(hr)
-
-
 ## writing the file out:
 def render(page, filename):
-    """
-    render the tree of elements
+   """
+   render the tree of elements
 
-    This uses cSstringIO to render to memory, then dump to console and
-    write to file -- very handy!
-    """
+   This uses cSstringIO to renderto memory, then dump to console and
+   write to file -- very handy!
+   """
 
-    f = StringIO()
-    page.render(f, u"    ")
+   f = cStringIO.StringIO()
+   page.render(f)
 
-    f.seek(0)
+   f.reset()
 
-    print f.read()
+   print f.read()
 
-    f.seek(0)
-    open(filename, 'w', encoding="utf-8").write( f.read() )
+   f.reset()
+   codecs.open(filename, 'w', encoding="utf-8").write( f.read() )
 
 
 ## Step 1
@@ -219,7 +218,6 @@ render(page, u"test_html_output1.html")
 # page.append(body)
 
 # render(page, u"test_html_output8.html")
-
 
 
 

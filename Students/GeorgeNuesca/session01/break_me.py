@@ -18,7 +18,7 @@ def ExcTypeError2():
 def ExcAttributeError():
     c = 1000 % 999
     c.capitalize()
-     return c
+    return c
 
 
 #def ExcSyntaxError1():

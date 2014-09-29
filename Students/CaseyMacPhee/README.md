@@ -1,4 +1,4 @@
-<html>
+
 ### Casey MacPhee Python Foundations II student folder
 #### This is where I'll be submitting the homeworks for the course.
 
@@ -12,4 +12,3 @@
 
 </body>
 [LinkedIn](https://www.linkedin.com/profile/view?id=302920906&trk=nav_responsive_tab_profile)
-</html>
