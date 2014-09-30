@@ -17,9 +17,9 @@ def argument_error():
         sys.argv[0]
 
 
-def remove_whitespace(contents):
+def remove_whitespace(text_line):
     whitechars = string.whitespace
-    return contents
+    return text_line
 
 
 def copy_file():
@@ -30,7 +30,7 @@ def copy_file():
     if not src_f:
         print "ERROR: cannot open source file"
         return
-    contents = src_f.read()
+    contents = src_f.readlines()
     src_f.close()
 
     dst_f = open(dst_filename, "w")
@@ -38,8 +38,11 @@ def copy_file():
         print "ERROR: cannot open destination file"
         return
 
-    contents = remove_whitespace(contents)
-    dst_f.write(contents)
+    # contents = map(lambda s: s.strip(), contents)
+    for l in contents:
+        stripped_line = remove_whitespace(l)
+        dst_f.write(stripped_line)
+
     return
 
 if __name__ == "__main__":
