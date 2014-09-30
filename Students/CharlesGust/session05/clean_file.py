@@ -39,10 +39,16 @@ def copy_file():
         return
 
     # contents = map(lambda s: s.strip(), contents)
-    for l in contents:
-        stripped_line = remove_whitespace(l)
-        dst_f.write(stripped_line)
+    map(lambda l:  dst_f.write("%s\n" % l.strip()), contents)
 
+    """
+    The following code works, but doesn't use map
+
+    for l in contents:
+        stripped_line = l.strip()
+        dst_f.write("%s\n" % stripped_line)
+    """
+    dst_f.close()
     return
 
 if __name__ == "__main__":
