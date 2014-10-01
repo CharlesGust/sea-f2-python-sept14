@@ -33,5 +33,7 @@ print [s for s in s3 if s % 3 == 0]
 s4 = range(21)
 print [s for s in s4 if s % 4 == 0]
 
-loop in loop
+# for i in range(2,5):
+#     print [s for s in range(21) if s % i == 0]
 
+print [[s for s in range(21) if s % i == 0] for i in range(2,5)]
