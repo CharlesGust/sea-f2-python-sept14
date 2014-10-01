@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 
 def rot13(string):
     letters = [chr(i) for i in range(97, 123)] * 2

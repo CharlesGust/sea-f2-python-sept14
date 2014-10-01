@@ -1,4 +1,4 @@
-#!/usr/env/python
+#!/usr/bin/env python
 
 def rot13(s):
     return s.encode("rot13")

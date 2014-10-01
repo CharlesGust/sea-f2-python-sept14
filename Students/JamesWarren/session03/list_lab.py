@@ -1,4 +1,4 @@
-#!/usr/env/python
+#!/usr/bin/env python
 
 #PART 1
 fruits = ["Apples", "Pears", "Oranges", "Peaches"]
@@ -8,7 +8,7 @@ print fruits
 add_fruit = int(raw_input("Please enter a number. > "))
 print "You entered: %i, %s" % (add_fruit, fruits[add_fruit-1])
 add_fruit = [raw_input("Please enter a fruit to add to the list. > ")]
-fruits = fruits + add_fruit
+fruits = add_fruit + fruits
 print fruits
 fruits.insert(0, raw_input("Please enter a fruit to add to the list. > "))
 print fruits
@@ -33,16 +33,16 @@ while user_inp in fruits:
 print fruits
 
 #PART 3
-user_inp = raw_input("Do you like %s? > " % fruits[-1])
-for fruit in range(len(fruits)):
-    fruits[fruit] = fruits[fruit].lower()
-while user_inp.lower() != "no" and user_inp.lower() != "yes":
-    print "%s is an invalid answer." % user_inp
-    user_inp = raw_input("Do you like %s? > " % fruits[-1])
-if user_inp.lower() == "no":
-    fruits.pop(-1)
-elif user_inp.lower() == "yes":
-    pass
+for fruit in fruits[:]:
+    print fruits
+    user_inp = raw_input("Do you like %s? > " % fruit.lower())
+    while user_inp.lower() != "no" and user_inp.lower() != "yes":
+        print "%s is an invalid answer." % user_inp
+        user_inp = raw_input("Do you like %s? > " % fruit.lower())
+    if user_inp.lower() == "no":
+        fruits.remove(fruit)
+    elif user_inp.lower() == "yes":
+        pass
 
 #PART 4
 print fruits
